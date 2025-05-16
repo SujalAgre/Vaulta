@@ -24,7 +24,7 @@ type TransactionsProps = {
     setSelectedAccount: (account: Keypair | undefined) => void;
 };
 
-function Transactions({ transactions, selectedAccount, setSelectedAccount }: TransactionsProps) {
+function Transactions({ transactions }: TransactionsProps) {
     return (
         <div className="flex items-center flex-col h-full mt-10">
             {transactions.length === 0 ? (
