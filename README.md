@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# [Vaulta](https://vaulta-wallet.vercel.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Vaulta** is a sleek, minimal, and secure Solana Based Web3 wallet.
 
-Currently, two official plugins are available:
+![image](https://github.com/user-attachments/assets/2c852d9f-c102-4116-9039-b29953833b78)
+![image](https://github.com/user-attachments/assets/a934245d-e615-4716-9880-3e04acf8e63c)
+![image](https://github.com/user-attachments/assets/7515921f-72fa-4c76-a445-129d67db3c6e)
+![image](https://github.com/user-attachments/assets/1cf08deb-fe70-4e5a-ac2d-85dc25a26f7d)
+![image](https://github.com/user-attachments/assets/6b850f27-bc72-4b00-b75e-01a565f2b359)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Transfer SOL**  
+  Easily send SOL to any Solana address.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Airdrop SOL on Devnet**  
+  Instantly airdrop SOL to your wallet while developing on the Devnet—perfect for testing and building dApps.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **View Recent Transactions**  
+  Get a clear overview of your wallet activity with a real-time feed of recent transactions.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **React**
+- **Typescript**
+- **Tailwind CSS**
+- **Solana Web3.js**
