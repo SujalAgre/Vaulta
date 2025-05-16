@@ -58,7 +58,7 @@ function Dashboard({ keypairs }: WalletListProps) {
 
             {pageNumber === 3 && (
                 <div>
-                    <Transactions transactions={transaction} selectedAccount={selectedAccount} setSelectedAccount={setSelectedAccount}/>
+                    <Transactions transactions={transaction}/>
                 </div>
             )}
 
