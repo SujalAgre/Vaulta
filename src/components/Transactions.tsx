@@ -5,7 +5,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "../components/ui/accordion"
-import { Keypair } from "@solana/web3.js";
 
 type TransferTransaction = {
     signature: string;
@@ -20,8 +19,7 @@ type TransferTransaction = {
 
 type TransactionsProps = {
     transactions: TransferTransaction[];
-    selectedAccount: Keypair | undefined;
-    setSelectedAccount: (account: Keypair | undefined) => void;
+    
 };
 
 function Transactions({ transactions }: TransactionsProps) {
