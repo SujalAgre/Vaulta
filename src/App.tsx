@@ -33,6 +33,7 @@ type Dashboard = {
 
 function App() {
   const [pageNumber, setPageNumber] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const [seedPhrase, setSeedPhrase] = useState<string>('');
   const [recoveryPhrase, setRecoveryPhrase] = useState(['']);
@@ -70,10 +71,10 @@ function App() {
     <>
       {pageNumber === 1 && (
         <div className="flex justify-center items-center h-screen w-screen flex-col">
-          <img src="/wallet-only.png" alt="wallet" className="w-18 h-15" />
-          <p className="text-6xl">Create a new wallet</p>
-          <p className="text-base font-mono">Do not share recovery phrase with anyone.</p>
-          <Button className="mt-4 font-mono" onClick={handleGenerate}>
+          <img src="/wallet-only.png" alt="wallet" className="md:w-18 md:h-15 sm:w-15 sm:h-12" />
+          <p className="md:text-6xl sm:text-4xl">Create a new wallet</p>
+          <p className="md:text-base font-mono sm:text-sm">Do not share recovery phrase with anyone.</p>
+          <Button className="mt-4 font-mono cursor-pointer" onClick={handleGenerate}>
             Generate Recovery Phrase
           </Button>
         </div>
@@ -81,43 +82,43 @@ function App() {
 
       {pageNumber === 2 && (
         <div className="w-screen h-screen flex justify-center items-center flex-col">
-          <p className="text-6xl mb-2">Secret recovery phrase</p>
-          <p className="font-mono text-sm">This is the only way to recover your account if you lose your device.</p>
-          <p className="font-mono text-sm mb-4">Write it down and store it in a safe place.</p>
+          <p className="md:text-6xl mb-2 sm:text-4xl">Secret recovery phrase</p>
+          <p className="font-mono md:text-sm sm:text-xs text-center sm:w-92 md:w-full">This is the only way to recover your account if you lose your device.</p>
+          <p className="font-mono md:text-sm sm:text-xs text-center mb-4">Write it down and store it in a safe place.</p>
 
           <table className="font-mono">
             <tbody>
               <tr>
-                <td className="border border-gray-500 w-30 h-10 text-center">1. {recoveryPhrase[0]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">2. {recoveryPhrase[1]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">3. {recoveryPhrase[2]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">4. {recoveryPhrase[3]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">5. {recoveryPhrase[4]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">6. {recoveryPhrase[5]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[0]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[1]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[2]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[3]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[4]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[5]}</td>
               </tr>
               <tr>
-                <td className="border border-gray-500 w-30 h-10 text-center">7. {recoveryPhrase[6]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">8. {recoveryPhrase[7]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">9. {recoveryPhrase[8]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">10. {recoveryPhrase[9]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">11. {recoveryPhrase[10]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">12. {recoveryPhrase[11]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[6]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[7]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[8]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[9]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[10]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[11]}</td>
               </tr>
               <tr>
-                <td className="border border-gray-500 w-30 h-10 text-center">13. {recoveryPhrase[12]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">14. {recoveryPhrase[13]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">15. {recoveryPhrase[14]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">16. {recoveryPhrase[15]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">17. {recoveryPhrase[16]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">18. {recoveryPhrase[17]}</td>
-              </tr>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[12]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[13]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[14]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[15]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[16]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[17]}</td>
+              </tr> 
               <tr>
-                <td className="border border-gray-500 w-30 h-10 text-center">19. {recoveryPhrase[18]}</td>
-                <td className="border border-gray-500 w-25 h-10 text-center">20. {recoveryPhrase[19]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">21. {recoveryPhrase[20]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">22. {recoveryPhrase[21]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">23. {recoveryPhrase[22]}</td>
-                <td className="border border-gray-500 w-30 h-10 text-center">24. {recoveryPhrase[23]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[18]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[19]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[20]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[21]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[22]}</td>
+                <td className="border border-gray-500 w-30 h-10 text-center sm:text-xs md:text-base"> {recoveryPhrase[23]}</td>
               </tr>
             </tbody>
           </table>
@@ -125,16 +126,26 @@ function App() {
             <Checkbox id="saved" checked={checked} onCheckedChange={(val) => setChecked(val === true)} />
             <label htmlFor="saved" className="ml-2">I saved my secret recovery phrase</label>
           </div>
-          <Button className="font-mono mt-5" disabled={!checked} onClick={() => {
+          <Button className="font-mono mt-5 cursor-pointer" disabled={!checked} onClick={() => {
             setPageNumber(3)
           }}>Next</Button>
         </div>
       )}
 
       {pageNumber === 3 && (
-        
-        <div className="flex h-screen w-screen">
-          <div className="w-64 bg-zinc-950 text-white flex flex-col p-4">
+        <div className="flex h-screen w-screen overflow-hidden">
+          {/* Toggle Button */}
+          <button
+            className="fixed bottom-4 left-4 z-50 text-white rounded-md md:hidden"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          {/* Sidebar */}
+          <div className={`z-10 md:w-64 sm:w-screen bg-zinc-950 text-white flex flex-col p-4 fixed h-screen transition-transform duration-200 translate-y-0 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <Button className="text-lg" onClick={() => {
               createWallet()
             }}>Create new account</Button>
@@ -142,17 +153,17 @@ function App() {
             {keypairs.map((pair, index) => (
               <Accordion key={pair.publicKey.toBase58()} type="single" collapsible className="font-mono mt-1">
                 <AccordionItem value="item-1">
-                  <AccordionTrigger className="ml-2">Account {index + 1}</AccordionTrigger>
+                  <AccordionTrigger className="ml-2 cursor-pointer">Account {index + 1}</AccordionTrigger>
                   <AccordionContent>
 
-                    <Button className="w-full" onClick={() => {
+                    <Button className="w-full cursor-pointer" onClick={() => {
                       copyToClipboard(pair.publicKey.toBase58())
                       toast("Public key copied to clipboard ✅")
                     }}>Public Key</Button>
 
                     <AlertDialog>
-                      <AlertDialogTrigger className="bg-primary text-white w-full mt-2 h-9 px-4 py-2 rounded-md hover:bg-primary/90">Private Key</AlertDialogTrigger>
-                      <AlertDialogContent className="font-mono">
+                      <AlertDialogTrigger className="bg-primary text-white w-full mt-2 h-9 px-4 py-2 rounded-md hover:bg-primary/90 cursor-pointer">Private Key</AlertDialogTrigger>
+                      <AlertDialogContent className="font-mono w-screen">
                         <AlertDialogHeader>
                           <AlertDialogTitle>Warning!</AlertDialogTitle>
                           <AlertDialogDescription>
@@ -163,7 +174,7 @@ function App() {
                           <AlertDialogAction onClick={() => {
                             copyToClipboard(bs58.encode(pair.secretKey))
                             toast("Private key copied to clipboard ✅")
-                          }}>Copy to clipboard</AlertDialogAction>
+                          }} className="cursor-pointer">Copy to clipboard</AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -171,19 +182,14 @@ function App() {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-
-              
             ))}
-
           </div>
-          
 
           {/* Main Content */}
-          <div className="flex-1 p-4">
-            <Dashboard keypairs={keypairs}/>
+          <div className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+            <Dashboard keypairs={keypairs} />
           </div>
         </div>
-        
       )}
     </>
   )

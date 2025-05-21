@@ -130,24 +130,24 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
 
     return (
         <>
-            <div className="flex justify-center items-start flex-col h-152">
-                <div className=" ml-8">
-                    <p className="text-6xl">Transfer Sol</p>
-                    <p className="text-lg text-neutral-300 font-mono">Transfer Sol to any Solana Address</p>
+            <div className="flex justify-center items-start flex-col md:h-152">
+                <div className="md:ml-8 sm:mt-13 md:mt-1">
+                    <p className="sm:text-5xl md:text-6xl">Transfer Sol</p>
+                    <p className="sm:text-base md:text-lg text-neutral-300 font-mono">Transfer Sol to any Solana Address</p>
                 </div>
 
-                <div className="flex mt-4 ml-8 font-mono">
+                <div className="flex sm:mt-2 md:mt-4 md:ml-8 font-mono">
                     <div>
                         <Select onValueChange={handleAccountChange}>
-                            <SelectTrigger className="w-[140px]">
-                                <SelectValue placeholder="Account" />
+                            <SelectTrigger className="w-[140px] cursor-pointer">
+                                <SelectValue placeholder="Account"/>
                             </SelectTrigger>
-                            <SelectContent className="bg-black text-white font-mono">
+                            <SelectContent className="bg-black text-white font-mono cursor-pointer">
                                 {keypairs.length === 0 ? (
-                                    <SelectItem value="0">No accounts available</SelectItem>
+                                    <SelectItem value="0" className="cursor-pointer">No accounts available</SelectItem>
                                 ) : (
                                     keypairs.map((_, index) => (
-                                        <SelectItem key={index} value={index.toString()}>Account {index + 1}</SelectItem>
+                                        <SelectItem key={index} value={index.toString()} className="cursor-pointer">Account {index + 1}</SelectItem>
                                     ))
                                 )}
                             </SelectContent>
@@ -157,40 +157,43 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
 
                     <div className="ml-2">
                         <Select onValueChange={rpcURL}>
-                            <SelectTrigger className="w-[140px]">
+                            <SelectTrigger className="w-[140px] cursor-pointer">
                                 <SelectValue placeholder="Dev NET" />
                             </SelectTrigger>
 
                             <SelectContent className="bg-black text-white font-mono">
-                                <SelectItem value="Main NET">Main NET</SelectItem>
-                                <SelectItem value="Dev NET">Dev NET</SelectItem>
-                                <SelectItem value="Test NET">Test NET</SelectItem>
+                                <SelectItem value="Main NET" className="cursor-pointer">Main NET</SelectItem>
+                                <SelectItem value="Dev NET" className="cursor-pointer">Dev NET</SelectItem>
+                                <SelectItem value="Test NET" className="cursor-pointer">Test NET</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
 
-                    <div className="flex ml-5 justify-center items-center">
+                    <div className="md:flex ml-4 justify-center items-center sm:hidden">
                         <p>{!selectedAccount ? "" : `Bal: ${balance} SOL`}</p>
                     </div>
                 </div>
+                <div className="flex justify-center items-center font-mono mt-2 md:hidden">
+                    <p>{!selectedAccount ? "" : `Bal: ${balance} SOL`}</p>
+                </div>
 
                 <div className="flex justify-center items-center">
-                    <div className="ml-8 mt-4 font-mono">
+                    <div className="md:ml-8 md:mt-2 sm:mt-1 font-mono">
 
                         <div>
                             <label >Enter Solana Address</label>
 
-                            <Input value={publicKey} className="w-lg mt-1" onChange={(event) => {
+                            <Input value={publicKey} className="sm:w-86 md:w-lg mt-1" onChange={(event) => {
 
                                 setPublicKey(event.target.value)
 
                             }} />
                         </div>
 
-                        <div className="mt-4">
+                        <div className="md:mt-4 sm:mt-2">
                             <label>Enter Amount</label>
 
-                            <Input className="w-lg mt-1" onChange={(event) => {
+                            <Input className="sm:w-86 md:w-full mt-1" onChange={(event) => {
                                 setSolAmt(parseFloat(event.target.value))
                             }} />
                         </div>
@@ -207,7 +210,7 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
                                 toast.error("Insufficient balance");
                             }
 
-                        }} className="mt-4">Send</Button>
+                        }} className="mt-4 cursor-pointer">Send</Button>
 
                     </div>
                 </div>

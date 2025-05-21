@@ -42,24 +42,24 @@ function Airdrop({ keypairs, selectedAccount, setSelectedAccount }: AirdropProps
 
     return (
         <>
-            <div className="flex justify-center items-start flex-col h-140">
-                <div className=" ml-8">
-                    <p className="text-6xl">Airdrop Solana</p>
-                    <p className="font-mono text-base">Maximum of 2 requests every 8 hours</p>
+            <div className="flex justify-center items-start flex-col md:h-140 sm:mt-13">
+                <div className="md:ml-8">
+                    <p className="sm:text-5xl md:text-6xl">Airdrop Solana</p>
+                    <p className="font-mono sm:text-base md:text-lg">Maximum of 2 requests every 8 hours</p>
                     <p className="text-base text-neutral-300 font-mono mt-2">Get 1 SOL in your address.</p>
                 </div>
 
-                <div className="flex ml-8 mt-3 font-mono">
+                <div className="flex md:ml-8 mt-3 font-mono">
                     <Select onValueChange={handleAccountChange}>
-                        <SelectTrigger className="w-[140px]">
+                        <SelectTrigger className="w-[140px] cursor-pointer">
                             <SelectValue placeholder="Account" />
                         </SelectTrigger>
-                        <SelectContent className="bg-black text-white font-mono">
+                        <SelectContent className="bg-black text-white font-mono cursor-pointer">
                             {keypairs.length === 0 ? (
-                                <SelectItem value="0">No accounts available</SelectItem>
+                                <SelectItem value="0" className="cursor-pointer">No accounts available</SelectItem>
                             ) : (
                                 keypairs.map((_, index) => (
-                                    <SelectItem key={index} value={index.toString()}>Account {index + 1}</SelectItem>
+                                    <SelectItem key={index} value={index.toString()} className="cursor-pointer">Account {index + 1}</SelectItem>
                                 ))
                             )}
                         </SelectContent>
@@ -84,7 +84,7 @@ function Airdrop({ keypairs, selectedAccount, setSelectedAccount }: AirdropProps
 
                 </div>
 
-                <Button className="ml-8 mt-3 font-mono" onClick={requestAirdrop} disabled={count >= 2}>Request Airdrop</Button>
+                <Button className="md:ml-8 mt-3 font-mono cursor-pointer" onClick={requestAirdrop} disabled={count >= 2}>Request Airdrop</Button>
 
             </div>
         </>

@@ -28,17 +28,17 @@ function Dashboard({ keypairs }: WalletListProps) {
 
     return (
         <>
-            <div className="flex justify-evenly ">
+            <div className="flex justify-evenly sm:flex-col md:flex-row">
 
-                <Button className="font-mono w-xs opacity-40 hover:opacity-100 transition-opacity duration-200" onClick={() => {
+                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
                     setPageNumber(1)
                 }}>Transfer Sol</Button>
 
-                <Button className="font-mono w-xs opacity-40 hover:opacity-100 transition-opacity duration-200" onClick={() => {
+                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
                     setPageNumber(2)
                 }}>Airdrop</Button>
 
-                <Button className="font-mono w-xs opacity-40 hover:opacity-100 transition-opacity duration-200" onClick={() => {
+                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
                     setPageNumber(3)
                 }}>Transactions</Button>
 

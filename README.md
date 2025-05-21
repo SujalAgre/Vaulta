@@ -14,7 +14,7 @@
   Easily send SOL to any Solana address.
 
 - **Airdrop SOL on Devnet**  
-  Instantly airdrop SOL to your wallet while developing on the Devnet—perfect for testing and building dApps.
+  Instantly airdrop SOL to your wallet while developing on the Devnet perfect for testing and building dApps.
 
 - **View Recent Transactions**  
   Get a clear overview of your wallet activity with a real-time feed of recent transactions.
