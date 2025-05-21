@@ -24,9 +24,6 @@ type TransactionsProps = {
 
 function Transactions({ transactions }: TransactionsProps) {
 
-    const copyToClipboard = (copy: string) => {
-        navigator.clipboard.writeText(copy)
-    }
 
     return (
         <div className="flex items-center flex-col">
