@@ -19,35 +19,36 @@ type TransferTransaction = {
 
 type TransactionsProps = {
     transactions: TransferTransaction[];
-
 };
 
 function Transactions({ transactions }: TransactionsProps) {
 
 
     return (
-        <div className="flex items-center flex-col">
+        <div className="flex items-center flex-col overflow-scroll transaction-custom-scrollbar">
             {transactions.length === 0 ? (
-                <div className="flex justify-center items-center md:h-130">
-                    <p className="sm:text-5xl md:text-6xl sm:mt-40">No transactions</p>
+                <div className="h-[98%] w-full justify-center items-center flex">
+                    <p className="sm:text-4xl sb:text-7xl">No transactions</p>
                 </div>
 
             ) : ([...transactions].reverse().map((transaction, index) => {
                 return (
-                    <Accordion type="single" collapsible key={index} className="sm:ml-1 flex sm:w-screen md:w-250 md:justify-center items-center md:mt-3 font-mono">
+                    <Accordion type="single" collapsible key={index} className="flex font-mono mt-4">
                         <AccordionItem value="item-1">
-                            <AccordionTrigger className="cursor-pointer">Sent {transaction.amount} SOL on {transaction.date} at {transaction.time}</AccordionTrigger>
-                            
+                            <AccordionTrigger className="cursor-pointer sm:hidden md:flex">Sent {transaction.amount} SOL on {transaction.date} at {transaction.time}</AccordionTrigger>
+                            <AccordionTrigger className="cursor-pointer sm:flex md:hidden">Sent {transaction.amount} SOL on {transaction.date}</AccordionTrigger>
+
                             <AccordionContent>
-                                <div className="flex justify-center items-start flex-col font-mono sm:w-70 md:w-250">
+                                <div className="flex items-start flex-col font-mono">
                                     <Link className="sm:flex md:hidden" to={`https://explorer.solana.com/tx/${transaction.signature}${transaction.rpcURL === "https://api.devnet.solana.com" ? "?cluster=devnet" : transaction.rpcURL === "https://api.testnet.solana.com" ? "?cluster=testnet" : ""}`} target="_blank">
                                         <p className="text-blue-500">Explorer.solana.com</p>
                                     </Link>
+
                                     <Link className="sm:hidden md:flex" to={`https://explorer.solana.com/tx/${transaction.signature}${transaction.rpcURL === "https://api.devnet.solana.com" ? "?cluster=devnet" : transaction.rpcURL === "https://api.testnet.solana.com" ? "?cluster=testnet" : ""}`} target="_blank">
                                         Signature:
                                         <p className="text-blue-500 ml-2">
                                             {transaction.signature}
-                                            
+
                                         </p>
 
                                     </Link>

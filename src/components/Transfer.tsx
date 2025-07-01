@@ -25,28 +25,36 @@ type TransferTransaction = {
 
 type TransferProps = {
     keypairs: Keypair[];
+    transaction: TransferTransaction[]
     setTransaction: (transaction: TransferTransaction[] | ((prev: TransferTransaction[]) => TransferTransaction[])) => void;
-    selectedAccount: Keypair | undefined;
-    setSelectedAccount: (account: Keypair | undefined) => void;
+    isDarkMode: boolean
+    setIsDarkMode: (value: boolean) => void;
 };
 
-function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccount }: TransferProps) {
+function Transfer({ keypairs, transaction, setTransaction, isDarkMode, setIsDarkMode }: TransferProps) {
 
     const [url, setUrl] = useState("https://api.devnet.solana.com");
     const [publicKey, setPublicKey] = useState("");
+    const [selectedAccount, setSelectedAccount] = useState<Keypair | undefined>(undefined);
     const [solAmt, setSolAmt] = useState<number>(0);
     const [balance, setBalance] = useState<number>(0);
 
     useEffect(() => {
-        const getBalance = async () => {
-            if (selectedAccount) {
-                const connection = new Connection(url, 'confirmed');
-                const bal = await connection.getBalance(selectedAccount.publicKey);
-                setBalance(bal / LAMPORTS_PER_SOL);
-            }
-        };
+        localStorage.setItem('transactions', JSON.stringify(transaction));
+    }, [transaction]);
+
+
+    useEffect(() => {
         getBalance();
     }, [selectedAccount, url]);
+
+    async function getBalance() {
+        if (selectedAccount) {
+            const connection = new Connection(url, 'confirmed');
+            const bal = await connection.getBalance(selectedAccount.publicKey);
+            setBalance(bal / LAMPORTS_PER_SOL);
+        }
+    };
 
     const transferSol = async () => {
         if (!selectedAccount) {
@@ -73,7 +81,7 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
         const from = Keypair.fromSecretKey(selectedAccount.secretKey);
         const to = new PublicKey(publicKey);
 
-        const transaction = new Transaction().add(
+        const solTransaction = new Transaction().add(
             SystemProgram.transfer({
                 fromPubkey: from.publicKey,
                 toPubkey: to,
@@ -81,7 +89,7 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
             })
         )
 
-        const signature = await sendAndConfirmTransaction(connection, transaction, [from]);
+        const signature = await sendAndConfirmTransaction(connection, solTransaction, [from]);
 
         if (signature) {
             toast.success("Transaction successful");
@@ -99,6 +107,8 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
         };
 
         setTransaction((prevTransaction: TransferTransaction[]) => [...prevTransaction, newTransaction]);
+
+
         return signature;
     }
 
@@ -129,94 +139,85 @@ function Transfer({ keypairs, setTransaction, selectedAccount, setSelectedAccoun
     }
 
     return (
-        <>
-            <div className="flex justify-center items-start flex-col md:h-152">
-                <div className="md:ml-8 sm:mt-13 md:mt-1">
-                    <p className="sm:text-5xl md:text-6xl">Transfer Sol</p>
-                    <p className="sm:text-base md:text-lg text-neutral-300 font-mono">Transfer Sol to any Solana Address</p>
-                </div>
 
-                <div className="flex sm:mt-2 md:mt-4 md:ml-8 font-mono">
-                    <div>
-                        <Select onValueChange={handleAccountChange}>
-                            <SelectTrigger className="w-[140px] cursor-pointer">
-                                <SelectValue placeholder="Account"/>
-                            </SelectTrigger>
-                            <SelectContent className="bg-black text-white font-mono cursor-pointer">
-                                {keypairs.length === 0 ? (
-                                    <SelectItem value="0" className="cursor-pointer">No accounts available</SelectItem>
-                                ) : (
-                                    keypairs.map((_, index) => (
-                                        <SelectItem key={index} value={index.toString()} className="cursor-pointer">Account {index + 1}</SelectItem>
-                                    ))
-                                )}
-                            </SelectContent>
-                        </Select>
-                    </div>
+        <div className="flex justify-center items-center flex-col">
+            <p className="sm:text-[45px] sb:text-7xl leading-none">Transfer Sol</p>
+            <p className="sm:text-sm md:text-lg font-mono">Transfer Sol to any Solana Address</p>
 
 
-                    <div className="ml-2">
-                        <Select onValueChange={rpcURL}>
-                            <SelectTrigger className="w-[140px] cursor-pointer">
-                                <SelectValue placeholder="Dev NET" />
-                            </SelectTrigger>
+            <div className="flex w-full justify-between mt-3 font-mono">
 
-                            <SelectContent className="bg-black text-white font-mono">
-                                <SelectItem value="Main NET" className="cursor-pointer">Main NET</SelectItem>
-                                <SelectItem value="Dev NET" className="cursor-pointer">Dev NET</SelectItem>
-                                <SelectItem value="Test NET" className="cursor-pointer">Test NET</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <Select onValueChange={handleAccountChange}>
+                    <SelectTrigger className={`w-[48%] cursor-pointer rounded-xl p-5 ${isDarkMode? '' : 'data-[placeholder]:text-neutral-500'}`}>
+                        <SelectValue placeholder="Account"/>
+                    </SelectTrigger>
+                    <SelectContent className={`bg-black text-white rounded-xl font-mono cursor-pointer ${isDarkMode ? '' : 'text-black bg-white '}`}>
+                        {keypairs.length === 0 ? (
+                            <SelectItem value="0" className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>No accounts</SelectItem>
+                        ) : (
+                            keypairs.map((_, index) => (
+                                <SelectItem key={index} value={index.toString()} className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>Account {index + 1}</SelectItem>
+                            ))
+                        )}
+                    </SelectContent>
+                </Select>
 
-                    <div className="md:flex ml-4 justify-center items-center sm:hidden">
-                        <p>{!selectedAccount ? "" : `Bal: ${balance} SOL`}</p>
-                    </div>
-                </div>
-                <div className="flex justify-center items-center font-mono mt-2 md:hidden">
-                    <p>{!selectedAccount ? "" : `Bal: ${balance} SOL`}</p>
-                </div>
+                <Select onValueChange={rpcURL}>
+                    <SelectTrigger className={`w-[48%] cursor-pointer rounded-xl p-5 ${isDarkMode? '' : 'data-[placeholder]:text-neutral-500'}`}>
+                        <SelectValue placeholder="Network" />
+                    </SelectTrigger>
 
-                <div className="flex justify-center items-center">
-                    <div className="md:ml-8 md:mt-2 sm:mt-1 font-mono">
+                    <SelectContent className={`bg-black text-white rounded-xl font-mono cursor-pointer ${isDarkMode ? '' : 'text-black bg-white '}`}>
+                        <SelectItem value="Main NET" className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>Main NET</SelectItem>
+                        <SelectItem value="Dev NET" className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>Dev NET</SelectItem>
+                        <SelectItem value="Test NET" className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>Test NET</SelectItem>
+                    </SelectContent>
+                </Select>
 
-                        <div>
-                            <label >Enter Solana Address</label>
+            </div>
 
-                            <Input value={publicKey} className="sm:w-86 md:w-lg mt-1" onChange={(event) => {
+            <div className="flex justify-center items-center flex-col w-full mt-4">
 
-                                setPublicKey(event.target.value)
+                <Input value={publicKey} className="rounded-xl p-5 font-mono" placeholder="Recipient's Address" onChange={(event) => {
 
-                            }} />
-                        </div>
+                    setPublicKey(event.target.value)
 
-                        <div className="md:mt-4 sm:mt-2">
-                            <label>Enter Amount</label>
+                }} />
 
-                            <Input className="sm:w-86 md:w-full mt-1" onChange={(event) => {
-                                setSolAmt(parseFloat(event.target.value))
-                            }} />
-                        </div>
 
-                        <Button onClick={async () => {
-                            const result = await transferSol();
-                            if (result === "No account selected") {
-                                toast.error("Please select an account first");
-                            } else if (result === "No public key provided") {
-                                toast.error("Please enter a public key");
-                            } else if (result === "No amount provided") {
-                                toast.error("Please enter an amount");
-                            } else if (result === "Insufficient balance") {
-                                toast.error("Insufficient balance");
-                            }
 
-                        }} className="mt-4 cursor-pointer">Send</Button>
+                {/* <label>Enter Amount</label> */}
 
-                    </div>
+                <div className="mt-4 flex w-full">
+                    <Input className="rounded-xl p-5 font-mono" placeholder="Amount" onChange={(event) => {
+                        setSolAmt(parseFloat(event.target.value))
+                    }} />
+
+
+                    <Button onClick={async () => {
+                        const result = await transferSol();
+
+                        if (result === "No account selected") {
+                            toast.error("Please select an account first");
+                        } else if (result === "No public key provided") {
+                            toast.error("Please enter a public key");
+                        } else if (result === "No amount provided") {
+                            toast.error("Please enter an amount");
+                        } else if (result === "Insufficient balance") {
+                            toast.error("Insufficient balance");
+                        }
+
+                    }} className={`ml-3 p-5 border-1 font-mono rounded-xl flex cursor-pointer ${isDarkMode ? '' : ' border-1 bg-[#ececec] text-black hover:bg-[#e6e6e6]'}`}>Send</Button>
                 </div>
 
             </div>
-        </>
+
+            <div className="mt-4 font-mono justify-center items-center">
+                <p>{!selectedAccount ? "" : `Bal: ${balance} SOL`}</p>
+            </div>
+
+        </div>
+
     )
 }
 

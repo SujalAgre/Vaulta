@@ -8,11 +8,17 @@
   font-style: normal;
 }
 
-/* @custom-variant dark (&:is(.dark *)); */
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @theme {
-  --breakpoint-sm: 375px;
-  --breakpoint-md: 768px;
+  --breakpoint-sm: 300px;
+  --breakpoint-sb: 500px;
+  --breakpoint-md: 800px;
   --breakpoint-lg: 1024px;
 }
 
@@ -89,11 +95,51 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-body{
+body {
   color: white;
-  font-family: AppleG;
+  font-family: 'Inter'
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  margin-left: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #38383800;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #494949;
+  border-radius: 10px;
+
+}
+
+.transaction-custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .transaction-custom-scrollbar::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  .transaction-custom-scrollbar::-webkit-scrollbar-thumb {
+    display: none;
+  }
+
+@media screen and (max-width: 500px) {
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    display: none;
+  }
+}
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -133,6 +179,7 @@ body{
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

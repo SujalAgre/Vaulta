@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { Button } from "./ui/button";
 import Transfer from "./Transfer";
 import Transactions from "./Transactions"
 import { Keypair } from "@solana/web3.js";
@@ -16,54 +14,59 @@ type TransferTransaction = {
     rpcURL: string;
 };
 
-type WalletListProps = {
+type Props = {
     keypairs: Keypair[];
+    dashPageNumber: number;
+    setDashPageNumber: (page: number) => void;
+    transactions: TransferTransaction[];
+    setTransaction: (transaction: TransferTransaction[] | ((prev: TransferTransaction[]) => TransferTransaction[])) => void;
+    isDarkMode: boolean
+    setIsDarkMode: (value: boolean) => void;
 };
 
-function Dashboard({ keypairs }: WalletListProps) {
+function Dashboard({ keypairs, dashPageNumber, setDashPageNumber, transactions, setTransaction, isDarkMode, setIsDarkMode }: Props) {
 
-    const [pageNumber, setPageNumber] = useState(1);
-    const [selectedAccount, setSelectedAccount] = useState<Keypair | undefined>(undefined);
-    const [transaction, setTransaction] = useState<TransferTransaction[]>([]);
 
     return (
         <>
-            <div className="flex justify-evenly sm:flex-col md:flex-row">
+            <div className="sm:hidden sb:flex justify-evenly flex-row pt-4 pb-4 ">
 
-                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
-                    setPageNumber(1)
-                }}>Transfer Sol</Button>
+                <button className="cursor-pointer font-mono hover:underline" onClick={() => {
+                    setDashPageNumber(1)
+                }}>Transfer Sol</button>
 
-                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
-                    setPageNumber(2)
-                }}>Airdrop</Button>
+                <button className="cursor-pointer font-mono hover:underline" onClick={() => {
+                    setDashPageNumber(2)
+                }}>Airdrop</button>
 
-                <Button className="cursor-pointer font-mono sm:w-86 md:w-xs opacity-40 hover:opacity-100 transition-opacity duration-200 mb-2" onClick={() => {
-                    setPageNumber(3)
-                }}>Transactions</Button>
+                <button className="cursor-pointer font-mono hover:underline" onClick={() => {
+                    setDashPageNumber(3)
+
+                }}>Transactions</button>
 
             </div>
 
-            {pageNumber === 1 && (
-                <div>
-                    <Transfer keypairs={keypairs} setTransaction={setTransaction} selectedAccount={selectedAccount} setSelectedAccount={setSelectedAccount}/>
+            {dashPageNumber === 1 && (
+                <div className="sm:h-screen sb:h-[85%] justify-center items-center flex">
+                    <Transfer keypairs={keypairs} transaction={transactions} setTransaction={setTransaction} isDarkMode={isDarkMode} setIsDarkMode={ setIsDarkMode} />
                 </div>
             )}
 
-            {pageNumber === 2 && (
-                <div>
-                    <Airdrop keypairs={keypairs} selectedAccount={selectedAccount} setSelectedAccount={setSelectedAccount}/>
+            {dashPageNumber === 2 && (
+                <div className="sm:h-screen sb:h-[85%] justify-center items-center flex">
+                    <Airdrop keypairs={keypairs} isDarkMode={isDarkMode}/>
                 </div>
             )}
 
-            {pageNumber === 3 && (
-                <div>
-                    <Transactions transactions={transaction}/>
+            {dashPageNumber === 3 && (
+                <div className="sm:h-screen sb:h-[85%] justify-center flex">
+                    <Transactions transactions={transactions} />
                 </div>
             )}
 
         </>
     )
 }
+
 
 export default Dashboard

@@ -11,13 +11,13 @@ import { toast } from "sonner";
 import { useState } from "react";
 type AirdropProps = {
     keypairs: Keypair[];
-    selectedAccount: Keypair | undefined;
-    setSelectedAccount: (account: Keypair | undefined) => void;
+    isDarkMode: boolean
 };
 
-function Airdrop({ keypairs, selectedAccount, setSelectedAccount }: AirdropProps) {
+function Airdrop({ keypairs, isDarkMode }: AirdropProps) {
 
     const [count, setCount] = useState(0);
+    const [selectedAccount, setSelectedAccount] = useState<Keypair | undefined>(undefined);
 
     function handleAccountChange(value: string) {
         const index = parseInt(value);
@@ -42,24 +42,24 @@ function Airdrop({ keypairs, selectedAccount, setSelectedAccount }: AirdropProps
 
     return (
         <>
-            <div className="flex justify-center items-start flex-col md:h-140 sm:mt-13">
-                <div className="md:ml-8">
-                    <p className="sm:text-5xl md:text-6xl">Airdrop Solana</p>
-                    <p className="font-mono sm:text-base md:text-lg">Maximum of 2 requests every 8 hours</p>
-                    <p className="text-base text-neutral-300 font-mono mt-2">Get 1 SOL in your address.</p>
-                </div>
+            <div className="flex justify-center items-center flex-col">
 
-                <div className="flex md:ml-8 mt-3 font-mono">
+                <p className="sm:text-[45px] sb:text-7xl">Airdrop Solana</p>
+                <p className="font-mono sm:text-sm sb:text-lg">Maximum of 2 requests every 8 hours</p>
+                <p className="sm:text-sm sb:text-base font-mono mt-2">Get 1 SOL in your address.</p>
+
+
+                <div className="flex mt-3 font-mono items-center sm:justify-evenly sb:justify-between  sm:w-full sb:w-[80%]">
                     <Select onValueChange={handleAccountChange}>
-                        <SelectTrigger className="w-[140px] cursor-pointer">
+                        <SelectTrigger className={`sm:w-[45%] sb:w-[48%] cursor-pointer rounded-xl p-5 ${isDarkMode? '' : 'data-[placeholder]:text-neutral-500'}`}>
                             <SelectValue placeholder="Account" />
                         </SelectTrigger>
-                        <SelectContent className="bg-black text-white font-mono cursor-pointer">
+                        <SelectContent className={`bg-black text-white rounded-xl font-mono cursor-pointer ${isDarkMode ? '' : 'text-black bg-white '}`}>
                             {keypairs.length === 0 ? (
-                                <SelectItem value="0" className="cursor-pointer">No accounts available</SelectItem>
+                                <SelectItem value="0" className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>No accounts available</SelectItem>
                             ) : (
                                 keypairs.map((_, index) => (
-                                    <SelectItem key={index} value={index.toString()} className="cursor-pointer">Account {index + 1}</SelectItem>
+                                    <SelectItem key={index} value={index.toString()} className={`${isDarkMode ? '' : 'focus:text-black focus:bg-[#eeeeee]'} cursor-pointer`}>Account {index + 1}</SelectItem>
                                 ))
                             )}
                         </SelectContent>
@@ -82,9 +82,9 @@ function Airdrop({ keypairs, selectedAccount, setSelectedAccount }: AirdropProps
                         </Select>
                     </div> */}
 
+                    <Button className={`sm:w-[45%] sb:w-[48%] cursor-pointer rounded-xl p-5 border-1 ${isDarkMode ? '' : ' border-1 bg-[#ececec] text-black hover:bg-[#e6e6e6]'}`} onClick={requestAirdrop} disabled={count >= 2}>Request</Button>
                 </div>
 
-                <Button className="md:ml-8 mt-3 font-mono cursor-pointer" onClick={requestAirdrop} disabled={count >= 2}>Request Airdrop</Button>
 
             </div>
         </>
