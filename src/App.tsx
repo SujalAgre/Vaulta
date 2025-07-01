@@ -361,7 +361,7 @@ function App() {
 
           {/* Main Content */}
           <div className={`flex-1 justify-center items-center`} onClick={() => setIsSidebarOpen(false)}>
-            <Dashboard keypairs={keypairs} dashPageNumber={dashPageNumber} setDashPageNumber={setDashPageNumber} transactions={transaction} setTransaction={setTransaction} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+            <Dashboard keypairs={keypairs} dashPageNumber={dashPageNumber} setDashPageNumber={setDashPageNumber} transactions={transaction} setTransaction={setTransaction} isDarkMode={isDarkMode} />
           </div>
         </div>
       )}
