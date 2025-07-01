@@ -28,10 +28,9 @@ type TransferProps = {
     transaction: TransferTransaction[]
     setTransaction: (transaction: TransferTransaction[] | ((prev: TransferTransaction[]) => TransferTransaction[])) => void;
     isDarkMode: boolean
-    setIsDarkMode: (value: boolean) => void;
 };
 
-function Transfer({ keypairs, transaction, setTransaction, isDarkMode, setIsDarkMode }: TransferProps) {
+function Transfer({ keypairs, transaction, setTransaction, isDarkMode }: TransferProps) {
 
     const [url, setUrl] = useState("https://api.devnet.solana.com");
     const [publicKey, setPublicKey] = useState("");

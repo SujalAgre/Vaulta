@@ -21,10 +21,9 @@ type Props = {
     transactions: TransferTransaction[];
     setTransaction: (transaction: TransferTransaction[] | ((prev: TransferTransaction[]) => TransferTransaction[])) => void;
     isDarkMode: boolean
-    setIsDarkMode: (value: boolean) => void;
 };
 
-function Dashboard({ keypairs, dashPageNumber, setDashPageNumber, transactions, setTransaction, isDarkMode, setIsDarkMode }: Props) {
+function Dashboard({ keypairs, dashPageNumber, setDashPageNumber, transactions, setTransaction, isDarkMode }: Props) {
 
 
     return (
@@ -48,7 +47,7 @@ function Dashboard({ keypairs, dashPageNumber, setDashPageNumber, transactions, 
 
             {dashPageNumber === 1 && (
                 <div className="sm:h-screen sb:h-[85%] justify-center items-center flex">
-                    <Transfer keypairs={keypairs} transaction={transactions} setTransaction={setTransaction} isDarkMode={isDarkMode} setIsDarkMode={ setIsDarkMode} />
+                    <Transfer keypairs={keypairs} transaction={transactions} setTransaction={setTransaction} isDarkMode={isDarkMode} />
                 </div>
             )}
 
